@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'my-heroes',
@@ -8,9 +9,11 @@ import { HeroService } from './hero.service';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit  {
-  constructor(private heroService: HeroService) {
-  };
-
+  constructor(
+    private heroService: HeroService,
+    private router: Router
+  ) {};
+  
   ngOnInit(): void {
     this.getHeroes();
   };
@@ -29,7 +32,21 @@ export class HeroesComponent implements OnInit  {
     });
   };
 
+  add(name: string): void {
+    if (name && name.trim()) {
+      this.heroService.create(name).then((hero) => {
+        this.heroes.push(hero);
+      });
+    }
+  }
+
+  delete(id: number): void {
+     this.heroService.delete(id).then(() => {
+       this.heroes = this.heroes.filter(hero => hero.id !== id);
+     });
+  }
+
   gotoDetail(): void {
-    debugger
+    this.router.navigate(['/detail', this.selectedHero.id]);
   };
 }

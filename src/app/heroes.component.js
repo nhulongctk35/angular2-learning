@@ -10,9 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var hero_service_1 = require("./hero.service");
+var router_1 = require("@angular/router");
 var HeroesComponent = (function () {
-    function HeroesComponent(heroService) {
+    function HeroesComponent(heroService, router) {
         this.heroService = heroService;
+        this.router = router;
         this.name = 'Angular';
     }
     ;
@@ -31,8 +33,22 @@ var HeroesComponent = (function () {
         });
     };
     ;
+    HeroesComponent.prototype.add = function (name) {
+        var _this = this;
+        if (name && name.trim()) {
+            this.heroService.create(name).then(function (hero) {
+                _this.heroes.push(hero);
+            });
+        }
+    };
+    HeroesComponent.prototype.delete = function (id) {
+        var _this = this;
+        this.heroService.delete(id).then(function () {
+            _this.heroes = _this.heroes.filter(function (hero) { return hero.id !== id; });
+        });
+    };
     HeroesComponent.prototype.gotoDetail = function () {
-        debugger;
+        this.router.navigate(['/detail', this.selectedHero.id]);
     };
     ;
     return HeroesComponent;
@@ -43,7 +59,8 @@ HeroesComponent = __decorate([
         templateUrl: './heroes.component.html',
         styleUrls: ['./heroes.component.css']
     }),
-    __metadata("design:paramtypes", [hero_service_1.HeroService])
+    __metadata("design:paramtypes", [hero_service_1.HeroService,
+        router_1.Router])
 ], HeroesComponent);
 exports.HeroesComponent = HeroesComponent;
 //# sourceMappingURL=heroes.component.js.map

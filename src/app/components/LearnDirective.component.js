@@ -6,19 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var AppComponent = (function () {
-    function AppComponent() {
-        this.title = 'Tour of Heroes';
+var LearnDirectiveComponent = (function () {
+    function LearnDirectiveComponent() {
     }
-    return AppComponent;
+    LearnDirectiveComponent.prototype.show = function (event) {
+        alert(this.text);
+    };
+    return LearnDirectiveComponent;
 }());
-AppComponent = __decorate([
-    core_1.Component({
-        selector: 'my-app',
-        templateUrl: './app.component.html',
-        styleUrls: ['./app.component.css']
+LearnDirectiveComponent = __decorate([
+    core_1.Directive({
+        selector: '[longntran]'
     })
-], AppComponent);
-exports.AppComponent = AppComponent;
-;
-//# sourceMappingURL=app.component.js.map
+], LearnDirectiveComponent);
+//# sourceMappingURL=LearnDirective.component.js.map

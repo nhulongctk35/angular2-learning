@@ -29,6 +29,11 @@ var HeroDetailComponent = (function () {
         })
             .subscribe(function (hero) { return _this.hero = hero; });
     };
+    HeroDetailComponent.prototype.save = function () {
+        var _this = this;
+        this.heroService.update(this.hero)
+            .then(function () { return _this.goBack(); });
+    };
     HeroDetailComponent.prototype.goBack = function () {
         this.location.back();
     };
